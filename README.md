@@ -2,7 +2,8 @@
 
 ## 1.1. 리액트 프로젝트 생성
 
-- ``
+- `npx create-react-app ./`
+- `yarn create react-app ./`
 
 ## 1.2. 파일 정리
 
