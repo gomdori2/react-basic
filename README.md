@@ -1,100 +1,188 @@
-# 1. 리액트 프로젝트 초기세팅
+# 1. JSX 문법
 
-## 1.1. 리액트 프로젝트 생성
+## 1.1. 감싸인 요소
 
-- ``
+- JSX 파일(컴포넌트)은 철글자를 대문자
+- <></> Fragment
+  - 컴포넌트를 return 하는 걸 프라그먼트라함
+- src/Main.js
+- build 파일 > src 파일을 압축함.
+- public에 있는애는 압축 x
 
-## 1.2. 파일 정리
+```js
+import React from "react";
 
-- srt/test 파일들 삭제
+const Main = () => {
+  const title = "리액트";
+  return;
+  <Fragment>
+    <h1>{title} 안녕</h1>
+    <h2>리액트 안녕</h2>
+  </Fragment>;
+};
 
-1. app.css
-2. app.test.js
-3. reportWebVitals.js
-4. setupTest…
-5. index.css 파일 수정
+export default Main;
+```
+
+## 1.2. 자바스크립트 표현
+
+- JSX 안에서 자바스크립트 표현식 코드를 {}로 감싸면 된다.
+
+```js
+import React from "react";
+
+const Main = () => {
+  const title = "React";
+
+  return (
+    <>
+      <h1>{title} 안녕</h1>
+      <h2>리액트 안녕</h2>
+    </>
+  );
+};
+
+export default Main;
+```
+
+- 명령형
+
+- 선언형
+
+## 1.3. IF문 대신 조건부 연산자(삼항연산자)
+
+- jsx 내부의 자바스크립트 표현식에서 if문을 사용할 수 없다.
+- jsx 밖에서 if문을 사용하여 사전에
+  값을 설정하거나 return 위에 js 부분에 설정하거나
+- 조건부 연산자(삼항 연산자)를 사용한다.
+
+```js
+  {조건 === "" ? () : ()}
+  // 아무것도 안보여줄때 null로 사용을 하기도 한다.
+  {title === "리액트" ? <h1>리액트 입니다.</h1> : null}
+  // 위에 null 준거랑 똑같음. 뒤에 false일 때 값 주지 않음.
+  {title === "리액트" && <h1>리액트 입니다.</h1>}
+  {title === "리액트" ? (
+        <h1>리액트 입니다.</h1>
+      ) : (
+        <h2>리액트가 아닙니다.</h2>
+)}
+```
+
+- if 문으로 제어할 시
+
+```js
+import React from "react";
+
+const Main = () => {
+  const title = "undefined";
+  let s = "";
+  if (title === undefined) {
+    s = `리액트입니다.`;
+  } else {
+    s = `리액트아닙니다..`;
+  }
+  return <div>{s}</div>;
+};
+
+export default Main;
+```
+
+## 1.4 AND 연산(&&)를 사용한 조건부 렌더링(화면에 뿌린다.)
+
+```js
+{
+  title === "리액트" && <h1>리액트 입니다.</h1>;
+}
+```
+
+## 1.5 undefined를 렌더링하지 않기
+
+- OR ||
+
+```js
+return title || "값이 undefined입니다."; 이건 아직 사용 x 하자.
+return <div>{title}</div>을 사용
+```
+
+## 스타일링
+
+- DOM 요소에 스타일을 적용할 때는 문자열이 아닌 객체 형태로
+- 카멜케이스 사용
 
 ```css
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  outline-style: none;
-}
-ul,
-li {
-  list-style: none;
-}
-a {
-  color: #000000;
-  text-decoration: none;
-}
-img {
-  vertical-align: middle;
-  border: 0;
-}
-html {
-  font-size: 16px;
-}
-body {
-  font-family: "Pretendard-Regular", sans-serif;
-  font-size: 1rem;
-  line-height: 1.25;
-  letter-spacing: -0.23px;
-  word-break: keep-all;
-  color: #000000;
+box-sizing: border-box;
+/boxsizing: borderBox;
+```
+
+## 1.6. 인라인 스타일링
+
+```css
+<div style={{ backgroundColor: "pink", fontSize: "48px", fontWeight: "700" }}>
+      {title}
+</div>
+```
+
+- js 단에 객체로 제어하는 방식
+
+```js
+const Main = () => {
+  const title = "리액트";
+  const style = {
+    backgroundColor: "pink",
+    fontSize: "48px",
+    fontWeight: "700",
+  };
+
+  return <div style={style}>{title}</div>;
+};
+```
+
+## 1.7. class 대신 className
+
+- 파일로 관리
+
+```js
+import React from "react";
+import "./react.css";
+const Main = () => {
+  const title = "리액트";
+
+  return <div className="react">{title}</div>;
+};
+
+export default Main;
+```
+
+```css
+.react {
+  background-color: pink;
+  font-size: 48px;
+  font-weight: 700;
 }
 ```
 
-## 1.3. React 개발 편의 도구 설치
+## 1.8. styled-component(Emotion)
 
-- React 크롬 개발 도구 [DevTools](https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=ko&utm_source=ext_sidebar)
+- CSS in JS
+- emtion Snippets > 리액트 emotion > css 자동완성
 
-- VSCode React Plugin (ES7+ React/Redux/React-Native snippets ) 설치
+```js
+import React from "react";
+import "./react.css";
+import styled from "@emotion/styled";
 
-## 1.4. nomalize.css 설정(css 초기화) cdn으로 할지/file 다운
+const StyledTitle = styled.div`
+  background-color: pink;
+  font-size: 48px;
+  font-weight: bold;
+`;
 
-- yarn add normalize.css
+const Main = () => {
+  const title = "리액트";
 
-- src/index.js에서 상단에 import
+  return <StyledTitle>{title}</StyledTitle>;
+};
 
-## scss, emotion.js
-
-- `yarn add sass`
-- `yarn add @emotion/react`
-- `yarn add @emotion/styled`
-
-## ESLint, prettier 설정
-
-- .prettierrc.json
-  - .prettierrc.json 파일을 루트 폴더에 만들것.
-
-```json
-{
-  "singleQuote": false,
-  "semi": true,
-  "useTabs": false,
-
-  // tab 시 2번 건너뛰기
-  "tabWidth": 2,
-  "trailingComma": "all",
-  "printWidth": 80,
-  "arrowParens": "avoid",
-  "endOfLine": "auto"
-}
+export default Main;
 ```
-
-- ESLint 설정
-
-  - `yarn add eslint --dev`
-
-- ESLint와 Prettier를 연결하여 ESLint 설정
-
-  - `yarn add eslint-config-prettier --save-dev`
-
-- 바벨에 의한 경고 제외
-  - 경고 해결은 아님.
-- `npm install @babel/plugin-proposal-private-property-in-object --dev`
-- `yarn add @babel/plugin-proposal-private-property-in-object --dev`
-
-- App.js부분 다 날릴것.

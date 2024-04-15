@@ -1,9 +1,6 @@
+import Main from "../src/Main.js";
 function App() {
-  return (
-    <div>
-      <h1>리액트 베이직</h1>
-    </div>
-  );
+  return <Main />;
 }
 
 export default App;
