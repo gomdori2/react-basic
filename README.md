@@ -52,12 +52,7 @@ export default Main;
 - props 값은 컴포넌트 함수의 파라미터로 받아와서 사용할 수 있다.
 - props를 렌더링 할 때는 JSX 내부에서 {} 기호로 감싼다.
 
-```js
--App.js;
-function App() {
-  return <Main title="리액트" />;
-}
-```
+- Main.js
 
 ```js
 - Main.js
@@ -75,5 +70,82 @@ const Main = ({ title }) => {
   );
 };
 
+export default Main;
+```
+
+### 2.3.2 컴포넌트를 사용할 때 props 값 지정하기
+
+- App.js
+
+```js
+-App.js;
+function App() {
+  return <Main title="리액트" />;
+}
+```
+
+### 2.3.3. props 기본값 설정 : defaultProps
+
+```js
+import React from "react";
+import "./react.css";
+
+const Main = props => {
+  return (
+    <div>
+      <h1> 안녕하세요, 나는{props.title}입니다.</h1>
+    </div>
+  );
+};
+Main.defaultProps = {
+  title: "기본 이름",
+};
+export default Main;
+```
+
+### 2.3.4. 태그 사이의 내용을 보여주는 children
+
+- src/App.js
+- 보내는 곳
+
+```js
+import Main from "../src/Main.js";
+
+function App() {
+  return <Main>리액트</Main>;
+}
+
+export default App;
+```
+
+- src/Main.js
+- 받는 곳
+
+```js
+<h2>children 값은 {props.children}</h2>
+```
+
+### 2.3.5. 구조 분해 할당(비구조화 할당 문법)을 통해 props
+
+- [구조분해할당](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+-
+
+```js
+import React from "react";
+
+const Main = ({ title, children }) => {
+  // 구조분해 할당
+  // props 내부 값을 현재 오브젝트 내부에 있는애 한테 할당함.
+  //const { title, children } = props;
+  console.log(title);
+  console.log(children);
+
+  return (
+    <div>
+      <h1> 안녕하세요, 나는{title}입니다.</h1>
+      <h2>children 값은 {children}</h2>
+    </div>
+  );
+};
 export default Main;
 ```
