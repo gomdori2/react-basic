@@ -1,7 +1,11 @@
-import Main from "../src/Main.js";
+import MainPage from "./pages/MainPage.js";
 
 function App() {
-  return <Main></Main>;
+  return (
+    <>
+      <MainPage />
+    </>
+  );
 }
 
 export default App;
