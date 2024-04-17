@@ -1,58 +1,79 @@
 import React, { useState } from "react";
 
-// 두가지 변수명으로 많이 적는다.
-const initState = {
-  username: "",
-  message: "",
-};
-// const initialState = {};
-
+const initState = [
+  {
+    id: 1,
+    name: "홍길동",
+  },
+  {
+    id: 2,
+    name: "임꺽정",
+  },
+  {
+    id: 3,
+    name: "알라딘",
+  },
+  {
+    id: 4,
+    name: "지니",
+  },
+  {
+    id: 5,
+    name: "미키마우스",
+  },
+];
 const Main = () => {
-  const [memberInfo, setMemberInfo] = useState(initState);
-  const { username, message } = memberInfo;
+  const numbers = [1, 2, 3, 4, 5];
+  const bigger = numbers.filter(num => num > 3);
+  // 특정요소 제거
+  const remove = numbers.filter(num => num !== 3);
 
-  const onChange = event => {
-    const nextMemberInfo = {
-      ...memberInfo, // 기존의 정보 내용을 이자리에 복사한 뒤
-      [event.target.name]: event.target.value, // 원하는 값을 덮어 씌우기
-    };
-    setMemberInfo(nextMemberInfo);
+  // member 목록 상태
+  const [members, setMembers] = useState(initState);
+
+  // member.id 상태
+  const [nextId, setNextId] = useState(6);
+  // input 상태
+  const [username, setUsername] = useState("");
+  // input 이벤트 핸들러
+  const onChange = e => {
+    setUsername(e.target.value);
+  };
+  // button 이벤트 핸들러
+  const onClick = e => {
+    // 배열의 내장 함수 concat 사용하여 새로운 항목을 추가한 배열로 만든다.
+
+    const nextMembers = members.concat({
+      id: nextId,
+      name: username,
+    });
+    setNextId(nextId + 1);
+
+    setMembers(nextMembers);
+    setUsername("");
   };
 
-  const onKeyPress = event => {
-    if (event.key === "Enter") {
-      onClick();
-    }
-    console.log("버튼이다");
+  const onRemove = id => {
+    const nextMembers = members.filter(member => member.id !== id);
+    const nextMembersBk = nextMembers.filter(members => members.name !== "");
+    console.log(nextMembersBk);
+    setMembers(nextMembersBk);
   };
 
-  const onClick = () => {
-    alert(`${username} : ${message}`);
-    setMemberInfo(initState);
-  };
   return (
-    // 리액트에선 태그 무조건 닫아야함.
-    <div style={{ width: "182px" }}>
-      <h1>이벤트 연습</h1>
-      <input
-        type="text"
-        name="username"
-        placeholder="사용자명"
-        value={username}
-        onChange={onChange}
-      />
-      <br></br>
-      <input
-        type="text"
-        name="message"
-        placeholder="아무거나 입력해 보세요."
-        value={message}
-        onChange={onChange}
-        onKeyUp={onKeyPress}
-      />
-      <br />
-      <button onClick={onClick}>확인</button>
+    <div>
+      <input onChange={onChange} value={username} />
+      <button onClick={onClick}>사용자 추가</button>
+      <ul>
+        {/* return 안쓰고 쓰는것. */}
+        {members.map(member => (
+          <li key={member.id} onDoubleClick={() => onRemove(member.id)}>
+            {member.name}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
+
 export default Main;
