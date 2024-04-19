@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Counter = () => {
   const [value, setValue] = useState(0);
+  console.log("카운터 컴포넌트 렌더링");
 
+  useEffect(() => {
+    console.log("effect");
+    console.log(value);
+
+    return () => {
+      console.log("cleanup 함수");
+      console.log(value);
+    };
+  }, [value]);
   return (
     <div>
       <p>
