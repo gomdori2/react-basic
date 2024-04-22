@@ -20,9 +20,6 @@ const Profile = () => {
   console.log(params);
   return (
     <div>
-      <Link to="/">
-        <h2>home</h2>
-      </Link>
       <h1>동물님 프로필</h1>
       <div>
         {/* 예외 처리 존재하지 않는 데이터 접근 시  */}

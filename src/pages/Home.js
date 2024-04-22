@@ -16,6 +16,12 @@ const Home = () => {
         <li>
           <Link to="/profile/dog">강아지 프로필</Link>
         </li>
+        <li>
+          <Link to="/Articles">게시글 목록</Link>
+        </li>
+        <li>
+          <Link to="/Animals">동물 목록</Link>
+        </li>
       </ul>
     </div>
   );
