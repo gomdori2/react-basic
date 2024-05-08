@@ -93,3 +93,4 @@ export default Axios;
 
 # 9.2. newsapi API 키 발급 받기
 - key 발급은 해당 홈페이지에서 받으면됨.
+
